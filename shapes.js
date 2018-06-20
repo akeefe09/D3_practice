@@ -54,6 +54,7 @@ svg.append("text")
   .attr("text-anchor", "start")
   .attr("font-size", "30")
   .text("start")
+  // add vertical align
 svg.append("text")
   .attr("x", newX)
   .attr("y", 180)
