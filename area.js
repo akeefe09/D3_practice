@@ -17,14 +17,14 @@ var y = d3.scaleLinear()
   .domain([0,d3.max(dataArray)])
   .range([height,0]);
 var x = d3.scaleTime()
-  .domain([])
+  .domain(d3.extent(dataYears,function(d) { return parseDate(d)} ))
   .range([0,width]);
 
 var yAxis = d3.axisLeft(y).ticks(3).tickSize(10);
 var xAxis = d3.axisBottom(x);
 
 var area = d3.area()
-  .x(function(d,i){ return i*20; })
+  .x(function(d,i){ return x(parseDate(dataYears[i])); })
   .y0(height)
   .y1(function(d){ return y(d); });
 
@@ -39,3 +39,7 @@ chartGroup.append("path").attr("d",area(dataArray));
 chartGroup.append("g")
   .attr("class","axis y")
   .call(yAxis);
+chartGroup.append("g")
+  .attr("class", "axis x")
+  .attr("transform","translate(0,"+height+")")
+  .call(xAxis);
